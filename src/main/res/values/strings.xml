@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AngelhackLocationBookmarks</string>
+    <string name="app_name">GeoBook</string>
+    <string name="notification_bookmark_button">Bookmark</string>
 </resources>
