@@ -9,7 +9,8 @@ object General {
     version := "0.1",
     versionCode := 0,
     scalaVersion := "2.9.2",
-    platformName in Android := "android-14"
+    platformName in Android := "android-14",
+    libraryDependencies += "io.spray" %%  "spray-json" % "1.2.3"
   )
 
   val proguardSettings = Seq (
