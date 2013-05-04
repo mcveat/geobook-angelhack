@@ -15,7 +15,7 @@ import android.view.View
  */
 class BookmarkActivity extends Activity with TypedActivity with LocationListener {
   var locationManager: LocationManager = _
-  var lastLocation: Location = _
+  var lastLocation: Option[Location] = None
 
   override def onCreate(b: Bundle) {
     super.onCreate(b)
@@ -44,18 +44,21 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
   }
 
   def updateLocation(l: Location) {
-    lastLocation = l
     val description = findView(TR.address_description)
     if (description.getVisibility == GONE) {
       findView(TR.loading).setVisibility(GONE)
       description.setVisibility(VISIBLE)
-      description.setText(lastLocation.getLatitude.toString + " " + lastLocation.getLongitude.toString)
+      description.setText(l.getLatitude.toString + " " + l.getLongitude.toString)
     }
     new LoadAddress(l, description).start()
+    if (lastLocation.map(l.distanceTo(_) > 50.0f).getOrElse(true))
+//      new LoadLocalPlaces(l, findView(TR.local_places)).start()
+      new Load(l).start()
+    lastLocation = Some(l)
   }
 
   def onLocationChanged(newLocation: Location) {
-    if (newLocation.getAccuracy < lastLocation.getAccuracy) updateLocation(newLocation)
+    if (lastLocation.map(newLocation.getAccuracy < _.getAccuracy).getOrElse(false)) updateLocation(newLocation)
   }
   def onStatusChanged(p1: String, p2: Int, p3: Bundle) {}
   def onProviderEnabled(p1: String) {}

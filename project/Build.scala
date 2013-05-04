@@ -10,7 +10,10 @@ object General {
     versionCode := 0,
     scalaVersion := "2.9.2",
     platformName in Android := "android-14",
-    libraryDependencies += "io.spray" %%  "spray-json" % "1.2.3"
+    libraryDependencies ++= Seq(
+      "io.spray" %%  "spray-json" % "1.2.3"
+    ),
+    unmanagedBase <<= baseDirectory { base => base / "lib" }
   )
 
   val proguardSettings = Seq (
@@ -25,7 +28,9 @@ object General {
     AndroidManifestGenerator.settings ++
     AndroidMarketPublish.settings ++ Seq (
       keyalias in Android := "change-me",
-      libraryDependencies += "org.scalatest" %% "scalatest" % "1.8" % "test"
+      libraryDependencies ++= Seq(
+        "org.scalatest" %% "scalatest" % "1.8" % "test"
+      )
     )
 }
 

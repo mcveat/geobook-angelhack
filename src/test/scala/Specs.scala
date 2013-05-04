@@ -1,4 +1,3 @@
-import ah.geobook
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.FunSpec
 
