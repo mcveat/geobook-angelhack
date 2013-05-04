@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ah.locbook">
+    package="ah.geobook">
 
     <application
         android:icon="@drawable/android:star_big_on"

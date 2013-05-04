@@ -1,13 +1,13 @@
-package ah.locbook.tests
+package ah.geobook.tests
 
-import ah.locbook._
+import ah.geobook._
 import junit.framework.Assert._
 import _root_.android.test.AndroidTestCase
 import _root_.android.test.ActivityInstrumentationTestCase2
 
 class AndroidTests extends AndroidTestCase {
   def testPackageIsCorrect() {
-    assertEquals("ah.locbook", getContext.getPackageName)
+    assertEquals("ah.geobook", getContext.getPackageName)
   }
 }
 

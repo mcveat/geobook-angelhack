@@ -1,10 +1,13 @@
-package ah.locbook
+package ah.geobook
 
 import android.app.{Notification, NotificationManager, Activity}
 import _root_.android.os.Bundle
 import android.content.Context._
 import android.widget.RemoteViews
 
+/**
+ * User: mcveat
+ */
 object MainActivity {
   val NOTIFICATION_ID = 1
 }

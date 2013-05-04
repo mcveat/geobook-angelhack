@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ah.locbook.tests">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ah.geobook.tests">
     <application>
         <activity android:name=".MainActivity" android:label="@string/app_name">
            <intent-filter>
@@ -11,7 +11,7 @@
     </application>
 
     <instrumentation android:label="Tests"
-                     android:targetPackage="ah.locbook"
+                     android:targetPackage="ah.geobook"
                      android:name="android.test.InstrumentationTestRunner"/>
 
     <uses-sdk android:minSdkVersion="14"/>
