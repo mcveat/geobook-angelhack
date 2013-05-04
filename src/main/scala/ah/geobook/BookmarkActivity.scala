@@ -104,6 +104,6 @@ class AddressLoadThread(location: Location, view: TextView) extends Thread {
     Some(out.toString)
   }
 
-  private def url(l: Location) = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false"
+  private def url(l: Location) = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=true"
     .format(l.getLatitude.toString, l.getLongitude.toString)
 }
