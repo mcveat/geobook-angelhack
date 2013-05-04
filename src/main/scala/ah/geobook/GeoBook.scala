@@ -12,4 +12,10 @@ object GeoBook {
   implicit def functionToOnClickListener(f: (View) => Unit) = new OnClickListener {
     def onClick(v: View) { f(v) }
   }
+
+  implicit def functionToRunnable(f: () => Any) = new Runnable {
+    def run() {
+      f()
+    }
+  }
 }

@@ -5,15 +5,7 @@ import android.os.Bundle
 import android.content.Context._
 import android.location.{Location, LocationListener, LocationManager}
 import LocationManager._
-import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.HttpStatus._
-import java.io.ByteArrayOutputStream
-import android.util.Log
 import GeoBook._
-import android.widget.TextView
-import spray.json._
-import DefaultJsonProtocol._
 import android.view.View._
 import android.view.ViewGroup.LayoutParams
 import android.view.View
@@ -59,7 +51,7 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
       description.setVisibility(VISIBLE)
       description.setText(lastLocation.getLatitude.toString + " " + lastLocation.getLongitude.toString)
     }
-    new AddressLoadThread(l, description).start()
+    new LoadAddress(l, description).start()
   }
 
   def onLocationChanged(newLocation: Location) {
@@ -75,35 +67,3 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
   }
 }
 
-class AddressLoadThread(location: Location, view: TextView) extends Thread {
-  override def run() {
-    val address = getAddress
-    view.post(new Runnable {
-      def run() {
-        address match {
-          case Some(s) => view.setText(s)
-          case _ => Log.d(TAG, "Error fetching address")
-        }
-      }
-    })
-  }
-
-  private def getAddress = getGoogleMapsLocation.flatMap { response =>
-    val components = response.asJson.asJsObject.getFields("results").head.convertTo[List[JsValue]]
-    val streetAddressComponent =
-      components.map(_.asJsObject).find(_.getFields("types").head.convertTo[List[String]].contains("street_address"))
-    streetAddressComponent.map(_.getFields("formatted_address").head.convertTo[String])
-  }
-
-  private def getGoogleMapsLocation: Option[String] = {
-    val response = new DefaultHttpClient().execute(new HttpGet(url(location)))
-    if (response.getStatusLine.getStatusCode != SC_OK) return None
-    val out = new ByteArrayOutputStream()
-    response.getEntity.writeTo(out)
-    out.close()
-    Some(out.toString)
-  }
-
-  private def url(l: Location) = "http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=true"
-    .format(l.getLatitude.toString, l.getLongitude.toString)
-}
