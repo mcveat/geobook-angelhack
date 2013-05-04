@@ -15,6 +15,8 @@ import android.widget.TextView
 import spray.json._
 import DefaultJsonProtocol._
 import android.view.View._
+import android.view.ViewGroup.LayoutParams
+import android.view.View
 
 /**
  * User: mcveat
@@ -32,6 +34,14 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
     locationManager.requestLocationUpdates(GPS_PROVIDER, 0l, 0f, this)
 
     updateLocation(getBestLastLocation)
+
+    val params = getWindow.getAttributes
+    params.width = LayoutParams.FILL_PARENT
+    getWindow.setAttributes(params)
+
+    findView(TR.save_button).setOnClickListener { v: View =>
+      finish()
+    }
   }
 
   def getBestLastLocation: Location = {
@@ -41,7 +51,7 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
     if ((System.currentTimeMillis - gps.getTime) < TWO_MINUTES) gps else network
   }
 
-  def updateLocation(l: Location) = {
+  def updateLocation(l: Location) {
     lastLocation = l
     val description = findView(TR.address_description)
     if (description.getVisibility == GONE) {
@@ -66,11 +76,10 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
 }
 
 class AddressLoadThread(location: Location, view: TextView) extends Thread {
-  override def run {
+  override def run() {
     val address = getAddress
-    Log.d(TAG, address.toString)
     view.post(new Runnable {
-      def run {
+      def run() {
         address match {
           case Some(s) => view.setText(s)
           case _ => Log.d(TAG, "Error fetching address")

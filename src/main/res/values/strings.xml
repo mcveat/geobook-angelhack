@@ -2,4 +2,6 @@
     <string name="app_name">GeoBook</string>
     <string name="notification_bookmark_button">Bookmark</string>
     <string name="loading">Loading location ...</string>
+    <string name="description_hint">Description ...</string>
+    <string name="save">Save</string>
 </resources>
