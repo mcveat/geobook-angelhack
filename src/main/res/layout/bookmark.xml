@@ -49,42 +49,64 @@
             <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:text="1"/>
+                    android:drawablePadding="-15sp"
+                    android:drawableTop="@drawable/cutlery"/>
             <Button
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:text="2"/>
+                    android:drawablePadding="-15sp"
+                    android:drawableTop="@drawable/shopping_bag"/>
             <Button
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:text="3"/>
+                    android:drawablePadding="-15sp"
+                    android:drawableTop="@drawable/coffe_cup"/>
             <Button
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:text="4"/>
+                    android:drawablePadding="-15sp"
+                    android:drawableTop="@drawable/glass"/>
             <Button
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:text="5"/>
+                    android:drawablePadding="-15sp"
+                    android:drawableTop="@drawable/film"/>
         </LinearLayout>
+
+        <Button
+                android:id="@+id/photo_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/make_photo"/>
+
+        <ImageView
+                android:id="@+id/photo_preview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:visibility="gone"/>
 
         <Button
                 android:id="@+id/save_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_weight="1"
-                android:text="@string/save"/>
+                android:drawablePadding="-15sp"
+                android:drawableTop="@drawable/bookmark_icon"/>
 
     </LinearLayout>
 

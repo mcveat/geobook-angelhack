@@ -1,7 +1,7 @@
 package ah.geobook
 
 import android.app.Activity
-import android.os.Bundle
+import android.os.{Parcelable, Environment, Bundle}
 import android.content.Context._
 import android.location.{Location, LocationListener, LocationManager}
 import LocationManager._
@@ -9,11 +9,21 @@ import GeoBook._
 import android.view.View._
 import android.view.ViewGroup.LayoutParams
 import android.view.View
+import android.content.Intent
+import android.provider.MediaStore
+import java.io.File
+import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.Date
+import android.graphics.{BitmapFactory, Bitmap}
+import android.net.Uri
 
 /**
  * User: mcveat
  */
 class BookmarkActivity extends Activity with TypedActivity with LocationListener {
+  val IMAGE_TAKEN = 200
+
   var locationManager: LocationManager = _
   var lastLocation: Location = _
 
@@ -34,7 +44,39 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
     findView(TR.save_button).setOnClickListener { v: View =>
       finish()
     }
+
+    findView(TR.photo_button).setOnClickListener { v: View =>
+        getOutputMediaFile.map { file =>
+          Log.d(TAG, file.getAbsoluteFile.toURI.toString)
+          val i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+          i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file).asInstanceOf[Parcelable])
+          startActivityForResult(i, IMAGE_TAKEN)
+        }
+      ()
+    }
   }
+
+  def getOutputMediaFile: Option[File] = {
+    val mediaStorageDir = new File(
+      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Geobook")
+    if (! mediaStorageDir.exists())
+      if (! mediaStorageDir.mkdirs()) {
+        Log.d(TAG, "failed to create directory")
+        return None
+      }
+
+    val timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())
+    Some(new File(mediaStorageDir.getPath + File.separator + "IMG_"+ timeStamp + ".jpg"))
+  }
+
+//  override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+//    if (requestCode != IMAGE_TAKEN || resultCode != Activity.RESULT_OK) return
+//    Log.d(TAG, data.getData.toString)
+//    findView(TR.photo_button).setVisibility(GONE)
+//    val photo = findView(TR.photo_preview)
+//    photo.setVisibility(VISIBLE)
+//    photo.setImageBitmap(BitmapFactory.decodeFile(data.getData.toString))
+//  }
 
   def getBestLastLocation: Location = {
     val TWO_MINUTES = 2 * 60 * 1000
