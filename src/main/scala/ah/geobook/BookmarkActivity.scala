@@ -40,7 +40,7 @@ class BookmarkActivity extends Activity with TypedActivity with LocationListener
     val TWO_MINUTES = 2 * 60 * 1000
     val network = locationManager.getLastKnownLocation(NETWORK_PROVIDER)
     val gps = locationManager.getLastKnownLocation(GPS_PROVIDER)
-    if ((System.currentTimeMillis - gps.getTime) < TWO_MINUTES) gps else network
+    if (gps != null && (System.currentTimeMillis - gps.getTime) < TWO_MINUTES) gps else network
   }
 
   def updateLocation(l: Location) {
