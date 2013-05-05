@@ -15,7 +15,7 @@ object GeoBook {
 
   implicit def functionToRunnable(f: () => Any) = new Runnable {
     def run() {
-      f()
+      f( )
     }
   }
 }

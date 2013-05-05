@@ -23,7 +23,6 @@ class MainActivity extends Activity with TypedActivity {
     notifications.notify(NOTIFICATION_ID, getNotification)
 
     setContentView(R.layout.main)
-    findView(TR.textview).setText("hello, world!")
   }
 
   private def getNotification = {
